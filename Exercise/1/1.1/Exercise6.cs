@@ -1,6 +1,6 @@
 using System;
 
-public class Exercise
+public class Exercise6
 {
 	/// <summary>
 	/// Fibonacci Sequence.
