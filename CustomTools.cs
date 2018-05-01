@@ -648,5 +648,92 @@ namespace Custom
 			return true;
 		}
 		#endregion
+
+		#region Sorting Alogrithm
+		#region  Help Function
+		/// <summary>
+		/// Check if a is less than b.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		private static bool Less<T> (T a, T b)
+			where T : struct, IComparable
+		{
+			return a.CompareTo(b) < 0;
+		}
+		/// <summary>
+		/// Exchange arr[i] and arr[j].
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="arr"></param>
+		/// <param name="i"></param>
+		/// <param name="j"></param>
+		public static void Exchange<T> (ref T[] arr, int i, int j)
+			where T : struct
+		{
+			T tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+		}
+		/// <summary>
+		/// Check if array is sorted. select order type by set variable: isReverse.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="arr"></param>
+		/// <param name="isReverse"></param>
+		/// <returns></returns>
+		public static bool IsSorted<T> (T[] arr, bool isReverse = false)
+			where T : struct, IComparable
+		{
+			for (int i = 1; i < arr.Length; i++)
+			{
+				if (isReverse == false)
+				{
+					if (Less(arr[i], arr[i - 1]))
+						return false;
+				}
+				else
+				{
+					if (Less(arr[i - 1], arr[i]))
+						return false;
+				}
+			}
+
+			return true;
+		}
+		#endregion
+
+		/// <summary>
+		/// Selection Sort Alogrithm
+		///		Steps:
+		///			First, find the smallest element.
+		///			Second, Exchange the smallest element with the first element(if the first one is the smallest, exchange with itself).
+		///			Third, find the smallest element in the rest elements, exchange it with the second element.
+		///			And then, continue First to Third until sort end.
+		///		
+		///		Characteristic:
+		///			1. For a long n's array, it needs about (N-1)+(N-2)+...+2+1=N(N-1)/2~(N^2)/2 times compare operation and n times exchange.
+		///			2. Date move times leastly, the relation of exchange times and array's size is linear. 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="arr"></param>
+		public static void SelectionSort<T> (ref T[] arr)
+			where T : struct, IComparable
+		{
+			int n = arr.Length;
+			for (int i = 0; i < n; i++)
+			{
+				int min = i;
+				for (int j = i+1; j < n; j++)
+				{
+					if (Less(arr[j], arr[min]))
+						min = j;
+				}
+				Exchange(ref arr, i, min);
+			}
+		}
+		#endregion
 	}
 }
