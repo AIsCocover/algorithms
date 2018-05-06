@@ -734,6 +734,40 @@ namespace Custom
 				Exchange(ref arr, i, min);
 			}
 		}
+
+		/// <summary>
+		/// InsertionSort Algorithm
+		///		Steps:
+		///			For each a[i]
+		///				From arr[0] to arr[i-1] each one as element 
+		///					if element smaller than a[i];
+		///						exchange(element, a[i])
+		///		Characteristic:
+		///			1. In bad situation, it needs to compare (N^2)/2 times and exchange (N^2)/2 times.
+		///			2. In average situation, it needs to compare (N^2)/4 times and exchange (N^2)/4 times.
+		///			3. In best situation, it needs to compare N-1 times and exchange 0 time.
+		///			4. the left side is always in order(a[i]'s left side).
+		///			5. arr's inverse number decide Insertion Sort Alogrithm's performance.
+		///				set exchange count = e, compare count = c, inverse number = n, arr's length = len.
+		///				we have:
+		///					i. e = n
+		///					ii. n+len-1 >= c >= n
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="arr"></param>
+		public static void InsertionSort<T> (ref T[] arr)
+			where T:struct, IComparable
+		{
+			int n = arr.Length;
+			for (int i = 1; i < n; i++)
+			{
+				for (int j = i; j > 0; j--)
+				{
+					if (Less(arr[j], arr[j - 1]))
+						Exchange(ref arr, j, j - 1);
+				}
+			}
+		}
 		#endregion
 	}
 }
